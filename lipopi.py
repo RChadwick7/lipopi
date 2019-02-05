@@ -31,7 +31,7 @@ def lipopi_setup():
     GPIO.setup(lipopi['shutdown_pin'], GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
     # setup the low battery check pin
-    GPIO.setup(lipopi['low_battery_pin'], GPIO.IN)
+    GPIO.setup(lipopi['low_battery_pin'], GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
     # create a trigger for the shutdown switch and low battery pins
 
