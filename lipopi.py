@@ -48,16 +48,25 @@ def lipopi_setup():
 def lipopi_user_shutdown(channel):
     global lipopi
 
-    cmd = "sudo wall 'System shutting down in %d seconds'" % lipopi['shutdown_wait']
-    os.system(cmd)
+looptimer = time.time()
 
-    time.sleep(lipopi['shutdown_wait'])
+While GPIO.input(shutdown_pin) == True:
+	If looptimer >= 3:
+## Button was held longer than 3 seconds - Let's shut down	
+	
+		cmd = "sudo wall 'System shutting down in %d seconds'" % lipopi['shutdown_wait']
+		os.system(cmd)
 
-    msg = time.strftime("User Request - Shutting down at %a, %d %b %Y %H:%M:%S +0000\n", time.gmtime())
-    lipopi['logfile_pointer'].write(msg)
-    lipopi['logfile_pointer'].close()
-    GPIO.cleanup()
-    os.system("sudo shutdown now")
+		time.sleep(lipopi['shutdown_wait'])
+
+		msg = time.strftime("User Request - Shutting down at %a, %d %b %Y %H:%M:%S +0000\n", time.gmtime())
+		lipopi['logfile_pointer'].write(msg)
+		lipopi['logfile_pointer'].close()
+		GPIO.cleanup()
+		os.system("sudo shutdown now")
+	Else:
+## We haven't waited long enough, exit the loop.	
+
 
 
 # Respond to a low battery signal from the PowerBoost and shutdown
