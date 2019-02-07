@@ -48,12 +48,12 @@ def lipopi_setup():
 def lipopi_user_shutdown(channel):
     global lipopi
 
-    looptimer = time.time()
+    loop_timer = time.time()
 
     while GPIO.input(lipopi['shutdown_pin']) == True:
 
         if time.time() - loop_timer > 3:
-## Button was held longer than 2 seconds - Let's shut down	
+## Button was held longer than 3 seconds - Let's shut down	
 	
             cmd = "sudo wall 'System shutting down in %d seconds'" % lipopi['shutdown_wait']
             os.system(cmd)
