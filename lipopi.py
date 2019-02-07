@@ -50,7 +50,7 @@ def lipopi_user_shutdown(channel):
 
     looptimer = time.time()
 
-    while (lipopi['shutdown_pin']) == True:
+    while GPIO.input(lipopi['shutdown_pin']) == True:
 
         if time.time() - loop_timer > 3:
 ## Button was held longer than 2 seconds - Let's shut down	
